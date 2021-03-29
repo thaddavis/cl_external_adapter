@@ -1,13 +1,13 @@
 name: "Youtube stats"
-description: An example adapter that does something.
-node_identifier: example
+description: An  adapter that gets youtube stats.
+node_identifier: youtube_cl_ea
 platforms:
   - Docker
   - AWS Lambda
   - GCP Functions
 data_sources:
-  - name: Example
-    url: https://example.com
+  - name: Youtube
+    url: https://youtube.com
 parameters:
-  - base
-  - quote
+  - part
+  - tag
