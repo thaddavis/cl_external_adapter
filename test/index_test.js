@@ -6,10 +6,9 @@ describe('createRequest', () => {
 
   context('successful calls', () => {
     const requests = [
-      { name: 'id not supplied', testData: { data: { base: 'ETH', quote: 'USD' } } },
-      { name: 'base/quote', testData: { id: jobID, data: { base: 'ETH', quote: 'USD' } } },
-      { name: 'from/to', testData: { id: jobID, data: { from: 'ETH', to: 'USD' } } },
-      { name: 'coin/market', testData: { id: jobID, data: { coin: 'ETH', market: 'USD' } } }
+      { name: 'id not supplied', testData: { data: { part: 'statistics', tag: '4i75Dqbhjvw' } } },
+      { name: 'statistics/tag', testData: { id: jobID, data: { part: 'statistics', tag: '4i75Dqbhjvw' } } },
+      { name: 'statistics/id', testData: { id: jobID, data: { part: 'statistics', id: '4i75Dqbhjvw' } } }
     ]
 
     requests.forEach(req => {
@@ -18,8 +17,7 @@ describe('createRequest', () => {
           assert.equal(statusCode, 200)
           assert.equal(data.jobRunID, jobID)
           assert.isNotEmpty(data.data)
-          assert.isAbove(Number(data.result), 0)
-          assert.isAbove(Number(data.data.result), 0)
+          assert.isAbove(parseInt(data.data.items[0].statistics.viewCount), 0)
           done()
         })
       })
@@ -30,10 +28,10 @@ describe('createRequest', () => {
     const requests = [
       { name: 'empty body', testData: {} },
       { name: 'empty data', testData: { data: {} } },
-      { name: 'base not supplied', testData: { id: jobID, data: { quote: 'USD' } } },
-      { name: 'quote not supplied', testData: { id: jobID, data: { base: 'ETH' } } },
-      { name: 'unknown base', testData: { id: jobID, data: { base: 'not_real', quote: 'USD' } } },
-      { name: 'unknown quote', testData: { id: jobID, data: { base: 'ETH', quote: 'not_real' } } }
+      { name: 'part not supplied', testData: { id: jobID, data: { tag: '4i75Dqbhjvw' } } },
+      { name: 'tag not supplied', testData: { id: jobID, data: { part: 'statistics' } } },
+      { name: 'unknown part', testData: { id: jobID, data: { part: 'not_real', tag: '4i75Dqbhjvw' } } },
+      { name: 'unknown tag', testData: { id: jobID, data: { part: 'statistics', tag: 'not_real' } } }
     ]
 
     requests.forEach(req => {

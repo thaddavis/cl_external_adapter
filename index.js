@@ -53,7 +53,6 @@ const createRequest = (input, callback) => {
       // It's common practice to store the desired value at the top-level
       // result key. This allows different adapters to be compatible with
       // one another.
-      response.data.result = Requester.getResult(response.data, ['items', 0, 'statistics', 'viewCount']);
       callback(response.status, Requester.success(jobRunID, response));
     })
     .catch(error => {
