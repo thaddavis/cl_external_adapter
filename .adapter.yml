@@ -1,5 +1,5 @@
-name: "Youtube stats"
-description: An  adapter that gets youtube stats.
+name: "Youtube data"
+description: An  adapter that gets youtube data.
 node_identifier: youtube_cl_ea
 platforms:
   - Docker
@@ -9,5 +9,6 @@ data_sources:
   - name: Youtube
     url: https://youtube.com
 parameters:
+  - endpoint
   - part
   - tag
