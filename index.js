@@ -1,6 +1,5 @@
-const { Requester, Validator } = require('@chainlink/external-adapter');
-require('dotenv').config();
-
+const { Requester, Validator } = require('@chainlink/external-adapter')
+require('dotenv').config()
 
 // Define custom error scenarios for the API.
 // Return true for the adapter to retry.
@@ -14,27 +13,29 @@ const customError = (data) => {
 // with a Boolean value indicating whether or not they
 // should be required.
 const customParams = {
-  part: ['part'],
-  id: ['id', 'tag'],
+  id: ['id'],
   endpoint: false
 }
 
 const createRequest = (input, callback) => {
+  console.log('*** input ***', input)
+
   // The Validator helps you validate the Chainlink request data
-  const validator = new Validator(callback, input, customParams)
+  const validator = new Validator(input, customParams)
   const jobRunID = validator.validated.id
   const endpoint = validator.validated.data.endpoint || 'videos'
   const url = `https://youtube.googleapis.com/youtube/v3/${endpoint}`
-  const part = validator.validated.data.part
+  // const part = validator.validated.data.part
   const id = validator.validated.data.id
-  const key = process.env.API_KEY;
-
+  const key = process.env.API_KEY
 
   const params = {
-    part,
+    part: "statistics",
     id,
     key
   }
+
+  console.log('*** params ***', params)
 
   // This is where you would add method and headers
   // you can add method like GET or POST and add it to the config
